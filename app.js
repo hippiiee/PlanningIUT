@@ -10,6 +10,7 @@ var autoprefixer = require('autoprefixer');
 
 var index = require('./routes/index');
 var webhooks = require('./routes/webhooks');
+var cmatrix = require('./routes/cmatrix');
 
 var app = express();
 
@@ -99,6 +100,7 @@ app.use(function(req, res, next) {
 
 app.use('/', index);
 app.use('/webhooks', webhooks);
+app.use('/cmatrix', cmatrix);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
