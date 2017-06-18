@@ -27,9 +27,15 @@ router.get('/', function(req, res, next) {
     var courses = plan.getCourses(group, true, 50);
 
     //get unused room
-    var rooms = req.unusedRoom.sallesDisponibles(Date.now()+1000*60*15); //maintenant plus 15 minutes
+    var timeRoom = Date.now()+1000*60*15;
+    
+    var hours = moment(timeRoom);
+    var t = hours.minute()%15;
+    hours = hours.subtract(t, 'minute');
 
-    var renderParam = { moment: moment, title: 'Planning '+param, courses: courses, options: {deps: deps, INFO1: groupsInfo1, INFO2: groupsInfo2}, selectedDep: "INFO"+paramInfo, selectedGroup: param, unused: rooms, menu: req.query.menu};
+    var rooms = req.unusedRoom.sallesDisponibles(hours.format('x')); //maintenant plus 15 minutes
+
+    var renderParam = { moment: moment, title: 'Planning '+param, courses: courses, options: {deps: deps, INFO1: groupsInfo1, INFO2: groupsInfo2}, selectedDep: "INFO"+paramInfo, selectedGroup: param, unused: {free:rooms, all:req.unusedRoom.nomSalles, time: hours.format('HH:mm')}, menu: req.query.menu};
     res.render('index', renderParam);
 });
 
