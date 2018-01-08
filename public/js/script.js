@@ -19,7 +19,7 @@ $(function(){
         d.setMonth(d.getMonth() + 3);
         // console.log(d);
 
-        document.cookie = "group="+ sel +"; expires="+ d;
+        document.cookie = "group="+ sel +"; expires="+ d +";secure;";
     });
 
     $("#selectDeps").on("change", function(e){

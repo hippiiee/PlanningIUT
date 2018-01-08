@@ -13,32 +13,32 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort('80');
+var port = normalizePort('3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var serverHttps = https.createServer({
-	  key: fs.readFileSync('/etc/letsencrypt/live/planningiut.fr/privkey.pem','utf8'),
-	  cert: fs.readFileSync('/etc/letsencrypt/live/planningiut.fr/cert.pem','utf8'),
-	  ca: fs.readFileSync('/etc/letsencrypt/live/planningiut.fr/chain.pem', 'utf8')
-	}, app);
+//var serverHttps = https.createServer({
+//	  key: fs.readFileSync('/etc/letsencrypt/live/planningiut.fr/privkey.pem','utf8'),
+//	  cert: fs.readFileSync('/etc/letsencrypt/live/planningiut.fr/cert.pem','utf8'),
+//	  ca: fs.readFileSync('/etc/letsencrypt/live/planningiut.fr/chain.pem', 'utf8')
+//	}, app);
  
- var serverHttp = http.createServer(app);
+var serverHttp = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-serverHttp.listen(port);
+serverHttp.listen(port, 'localhost');
 serverHttp.on('error', onError);
 serverHttp.on('listening', onListening);
 
-serverHttps.listen(443);
-serverHttps.on('error', onError);
-serverHttps.on('listening', onListening);
+//serverHttps.listen(port, 'localhost');
+//serverHttps.on('error', onError);
+//serverHttps.on('listening', onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
